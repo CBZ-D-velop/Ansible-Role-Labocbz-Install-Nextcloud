@@ -1,1 +1,15 @@
 ---
+- name: "Reload Apache2"
+  register: install_apache_service_status
+  changed_when: install_apache_service_status.state != "reloaded"
+  ansible.builtin.service:
+    name: "apache2"
+    state: "reloaded"
+
+- name: "Restart php-fpm"
+  when: install_nextcloud_php_fpm_version | default(false)
+  register: fpm_service_status
+  changed_when: not fpm_service_status.status.ActiveState != "stopped"
+  ansible.builtin.service:
+    name: "php{{ install_nextcloud_php_fpm_version }}-fpm"
+    state: "restarted"

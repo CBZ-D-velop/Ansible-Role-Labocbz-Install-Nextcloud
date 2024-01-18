@@ -1,17 +1,23 @@
 ---
 
-install_nextcloud_container_name: "nextcloud"
-install_nextcloud_data_path: "/var/lib/nextcloud"
-install_nextcloud_web_address: "0.0.0.0"
-install_nextcloud_web_port: 8080
+install_nextcloud_data_path: "/var/www/html/my.nextcloud.domain.tld"
+install_nextcloud_apache_system_user: "www-data"
+install_nextcloud_apache_system_group: "www-data"
+
+install_nextcloud_version: "28.0.1.1"
+install_nextcloud_passwordsalt: "8CD9qIKyK28wNv22nsfS28PtL4Fw70"
+install_nextcloud_secret: "BvsA8/2pgtYaZ5Brscvvol17A1BiPRMasSFu8tP1aMMvERel"
+
+#install_nextcloud_php_fpm_version: "8.2"
 
 install_nextcloud_mysql_database: "nextcloud"
 install_nextcloud_mysql_user: "nextcloud"
 install_nextcloud_mysql_password: "password"
 install_nextcloud_mysql_host: "127.0.0.1"
+install_nextcloud_mysql_port: "3306"
 
 #install_nextcloud_mysql_attr_ssl_key: ""
-#install_nextcloud_mysql_attr_ssl_cert: ""
+#install_nextcloud_mysql_attr_ssl_crt: ""
 #install_nextcloud_mysql_attr_ssl_ca: ""
 #install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
 
@@ -22,12 +28,14 @@ install_nextcloud_admin_password: "password"
 #install_nextcloud_redis_host_port: "6379"
 #install_nextcloud_redis_host_password: "password"
 
-install_nextcloud_php_memory_limit: "512m"
-install_nextcloud_php_upload_limit: "512m"
+install_nextcloud_trusted_proxies:
+  - "127.0.0.1"
+  - "localhost"
+install_nextcloud_trusted_domains:
+  - "http://my.nextcloud.domain.tld"
+  - "127.0.0.1"
+  - "localhost"
 
-install_nextcloud_apache_disable_rewrite_ip: 0
-install_nextcloud_trusted_proxies: "127.0.0.1 localhost"
-install_nextcloud_trusted_domains: "http://my.nextcloud.domain.tld 127.0.0.1 localhost"
 install_nextcloud_overwritehost: "http://my.nextcloud.domain.tld"
 install_nextcloud_owerwriteprotocol: "http"
 install_nextcloud_owerwritecliurl: "{{ install_nextcloud_overwritehost }}"

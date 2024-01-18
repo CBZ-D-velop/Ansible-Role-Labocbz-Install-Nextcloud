@@ -1,0 +1,67 @@
+<?php
+$CONFIG = array (
+  'htaccess.RewriteBase' => '/',
+  'memcache.local' => '\\OC\\Memcache\\APCu',
+  'apps_paths' => 
+  array (
+    0 => 
+    array (
+      'path' => '{{ install_nextcloud_data_path }}/apps',
+      'url' => '/apps',
+      'writable' => false,
+    ),
+    1 => 
+    array (
+      'path' => '{{ install_nextcloud_data_path }}/custom_apps',
+      'url' => '/custom_apps',
+      'writable' => true,
+    ),
+  ),
+{% if install_nextcloud_redis_host | default(false) %}
+  'memcache.distributed' => '\\OC\\Memcache\\Redis',
+  'memcache.locking' => '\\OC\\Memcache\\Redis',
+  'redis' => 
+  array (
+    'host' => '{{ install_nextcloud_redis_host }}',
+    'password' => '{{ install_nextcloud_redis_host_password }}',
+    'port' => {{ install_nextcloud_redis_host_port }},
+  ),
+{% endif %}
+  'overwritehost' => '{{ install_nextcloud_overwritehost }}',
+  'overwriteprotocol' => '{{ install_nextcloud_owerwriteprotocol }}',
+  'overwrite.cli.url' => '{{ install_nextcloud_owerwritecliurl }}',
+  'trusted_proxies' => 
+  array (
+{% for proxy in install_nextcloud_trusted_proxies | default([]) %}
+    {{ loop.index - 1}} => "{{ proxy }}",
+{% endfor %}
+  ),
+  'upgrade.disable-web' => false,
+  'passwordsalt' => '{{ install_nextcloud_passwordsalt }}',
+  'secret' => '{{ install_nextcloud_secret }}',
+  'trusted_domains' => 
+  array (
+{% for domain in install_nextcloud_trusted_domains | default([]) %}
+    {{ loop.index - 1}} => "{{ domain }}",
+{% endfor %}
+  ),
+  'datadirectory' => '{{ install_nextcloud_data_path }}/data',
+  'dbtype' => 'mysql',
+  'version' => '28.0.1.1',
+  'dbname' => '{{ install_nextcloud_mysql_database }}',
+  'dbhost' => '{{ install_nextcloud_mysql_host }}',
+  'dbport' => '{{ install_nextcloud_mysql_port }}',
+  'dbtableprefix' => 'nc_',
+  'mysql.utf8mb4' => true,
+  'dbuser' => '{{ install_nextcloud_mysql_user }}',
+  'dbpassword' => '{{ install_nextcloud_mysql_password }}',
+
+{% if install_nextcloud_redis_host | default(false) %}
+  'dbdriveroptions' => [
+      \PDO::MYSQL_ATTR_SSL_KEY => '{{ install_nextcloud_mysql_attr_ssl_key }}',
+      \PDO::MYSQL_ATTR_SSL_CERT => '{{ install_nextcloud_mysql_attr_ssl_crt }}',
+      \PDO::MYSQL_ATTR_SSL_CA => '{{ install_nextcloud_mysql_attr_ssl_ca }}',
+      \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => {{ install_nextcloud_mysql_attr_ssl_verify_server_cert }}
+  ],
+{% endif %}
+);
