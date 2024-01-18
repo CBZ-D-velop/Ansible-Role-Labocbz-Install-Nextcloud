@@ -1,0 +1,33 @@
+---
+- name: "handle_mtls | Remove dbdriveroptions if present"
+  ansible.builtin.replace:
+    path: "{{ install_nextcloud_data_path }}/config/config.php"
+    regexp: "'dbdriveroptions' => \\[.*\\],"
+    replace: ""
+
+- name: "handle_mtls | Handle a TLS/mTLS Mariadb"
+  when: install_nextcloud_mysql_attr_ssl_ca | default(false)
+  block:
+    - name: "handle_mtls | Handle mTLS"
+      when: install_nextcloud_mysql_attr_ssl_key | default(false)
+      ansible.builtin.blockinfile:
+        path: "{{ install_nextcloud_data_path }}/config/config.php"
+        marker: ""
+        block: |
+          'dbdriveroptions' => [
+            \PDO::MYSQL_ATTR_SSL_KEY => '/../ssl/{{ install_nextcloud_mysql_attr_ssl_key }}',
+            \PDO::MYSQL_ATTR_SSL_CERT => '/../ssl/{{ install_nextcloud_mysql_attr_ssl_cert }}',
+            \PDO::MYSQL_ATTR_SSL_CA => '/../ssl/{{ install_nextcloud_mysql_attr_ssl_ca }}',
+            \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => {{ install_nextcloud_mysql_attr_ssl_verify_server_cert }}
+          ],
+
+    - name: "handle_mtls | Handle TLS ontly"
+      when: not (install_nextcloud_mysql_attr_ssl_key | default(false))
+      ansible.builtin.blockinfile:
+        path: "{{ install_nextcloud_data_path }}/config/config.php"
+        marker: ""
+        block: |
+          'dbdriveroptions' => [
+            \PDO::MYSQL_ATTR_SSL_CA => '/../ssl/{{ install_nextcloud_mysql_attr_ssl_ca }}',
+            \PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => {{ install_nextcloud_mysql_attr_ssl_verify_server_cert }}
+          ],

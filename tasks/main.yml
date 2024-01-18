@@ -1,1 +1,116 @@
 ---
+- name: "Create install path"
+  block:
+    - name: "Check if Nextcloud data exist"
+      register: nextcloud_folders
+      ansible.builtin.stat:
+        path: "{{ install_nextcloud_data_path }}"
+
+    - name: "Create all volumes"
+      when: not nextcloud_folders.stat.exists
+      loop:
+        - "{{ install_nextcloud_data_path }}"
+        - "{{ install_nextcloud_data_path }}/custom_apps"
+        - "{{ install_nextcloud_data_path }}/config"
+        - "{{ install_nextcloud_data_path }}/data"
+        - "{{ install_nextcloud_data_path }}/themes"
+        - "{{ install_nextcloud_data_path }}/ssl"
+      loop_control:
+        loop_var: volume
+      ansible.builtin.file:
+        path: "{{ install_nextcloud_data_path }}"
+        state: directory
+        recurse: yes
+        mode: "0700"
+        owner: "root"
+        group: "root"
+
+    - name: "Remove / Edit TLS configuration"
+      when: nextcloud_folders.stat.exists
+      ansible.builtin.include_tasks:
+        file: "./handle_mtls.yml"
+
+- name: "Install Nextcloud with Redis"
+  when: install_nextcloud_redis_host | default(false)
+  community.docker.docker_container:
+    name: "{{ install_nextcloud_container_name }}"
+    image: "nextcloud:latest"
+    state: "started"
+    recreate: false
+    restart_policy: "always"
+    ports:
+      - "{{ install_nextcloud_web_address }}:{{ install_nextcloud_web_port }}:80"
+    volumes:
+      - "{{ install_nextcloud_data_path }}:/var/www/html"
+      - "{{ install_nextcloud_data_path }}/custom_apps:/var/www/html/custom_apps"
+      - "{{ install_nextcloud_data_path }}/config:/var/www/html/config"
+      - "{{ install_nextcloud_data_path }}/data:/var/www/html/data"
+      - "{{ install_nextcloud_data_path }}/themes:/var/www/html/themes/"
+      - "{{ install_nextcloud_data_path }}/ssl:/var/www/html/ssl"
+    env:
+      MYSQL_DATABASE: "{{ install_nextcloud_mysql_database }}"
+      MYSQL_USER: "{{ install_nextcloud_mysql_user }}"
+      MYSQL_PASSWORD: "{{ install_nextcloud_mysql_password }}"
+      MYSQL_HOST: "{{ install_nextcloud_mysql_host }}"
+      
+      NEXTCLOUD_ADMIN_USER: "{{ install_nextcloud_admin_user }}"
+      NEXTCLOUD_ADMIN_PASSWORD: "{{ install_nextcloud_admin_password }}"
+
+      REDIS_HOST: "{{ install_nextcloud_redis_host }}"
+      REDIS_HOST_PORT: "{{ install_nextcloud_redis_host_port }}"
+      REDIS_HOST_PASSWORD: "{{ install_nextcloud_redis_host_password }}"
+      
+      PHP_MEMORY_LIMIT: "{{ install_nextcloud_php_memory_limit }}"
+      PHP_UPLOAD_LIMIT: "{{ install_nextcloud_php_upload_limit }}"
+
+      APACHE_DISABLE_REWRITE_IP: "{{ install_nextcloud_apache_disable_rewrite_ip }}"
+      TRUSTED_PROXIES: "{{ install_nextcloud_trusted_proxies }}"
+      NEXTCLOUD_TRUSTED_DOMAINS: "{{ install_nextcloud_trusted_domains }}"
+      OVERWRITEHOST: "{{ install_nextcloud_overwritehost }}"
+      OVERWRITEPROTOCOL: "{{ install_nextcloud_owerwriteprotocol }}"
+      OVERWRITECLIURL: "{{ install_nextcloud_owerwritecliurl }}"
+
+- name: "Install Nextcloud without Redis"
+  when: not(install_nextcloud_redis_host | default(false))
+  community.docker.docker_container:
+    name: "{{ install_nextcloud_container_name }}"
+    image: "nextcloud:latest"
+    state: "started"
+    recreate: false
+    restart_policy: "always"
+    ports:
+      - "{{ install_nextcloud_web_address }}:{{ install_nextcloud_web_port }}:80"
+    volumes:
+      - "{{ install_nextcloud_data_path }}:/var/www/html"
+      - "{{ install_nextcloud_data_path }}/custom_apps:/var/www/html/custom_apps"
+      - "{{ install_nextcloud_data_path }}/config:/var/www/html/config"
+      - "{{ install_nextcloud_data_path }}/data:/var/www/html/data"
+      - "{{ install_nextcloud_data_path }}/themes:/var/www/html/themes/"
+      - "{{ install_nextcloud_data_path }}/ssl:/var/www/html/ssl"
+    env:
+      MYSQL_DATABASE: "{{ install_nextcloud_mysql_database }}"
+      MYSQL_USER: "{{ install_nextcloud_mysql_user }}"
+      MYSQL_PASSWORD: "{{ install_nextcloud_mysql_password }}"
+      MYSQL_HOST: "{{ install_nextcloud_mysql_host }}"
+      
+      NEXTCLOUD_ADMIN_USER: "{{ install_nextcloud_admin_user }}"
+      NEXTCLOUD_ADMIN_PASSWORD: "{{ install_nextcloud_admin_password }}"
+
+      REDIS_HOST: "{{ install_nextcloud_redis_host }}"
+      REDIS_HOST_PORT: "{{ install_nextcloud_redis_host_port }}"
+      REDIS_HOST_PASSWORD: "{{ install_nextcloud_redis_host_password }}"
+      
+      PHP_MEMORY_LIMIT: "{{ install_nextcloud_php_memory_limit }}"
+      PHP_UPLOAD_LIMIT: "{{ install_nextcloud_php_upload_limit }}"
+
+      APACHE_DISABLE_REWRITE_IP: "{{ install_nextcloud_apache_disable_rewrite_ip }}"
+      TRUSTED_PROXIES: "{{ install_nextcloud_trusted_proxies }}"
+      NEXTCLOUD_TRUSTED_DOMAINS: "{{ install_nextcloud_trusted_domains }}"
+      OVERWRITEHOST: "{{ install_nextcloud_overwritehost }}"
+      OVERWRITEPROTOCOL: "{{ install_nextcloud_owerwriteprotocol }}"
+      OVERWRITECLIURL: "{{ install_nextcloud_owerwritecliurl }}"
+
+- name: "Remove / Edit TLS configuration"
+  when: not nextcloud_folders.stat.exists
+  ansible.builtin.include_tasks:
+    file: "./handle_mtls.yml"

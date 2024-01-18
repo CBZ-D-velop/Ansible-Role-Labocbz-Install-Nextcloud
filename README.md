@@ -100,7 +100,39 @@ Some vars a required to run this role:
 
 ```YAML
 ---
-your defaults vars here
+
+install_nextcloud_container_name: "nextcloud"
+install_nextcloud_data_path: "/var/lib/nextcloud"
+install_nextcloud_web_address: "0.0.0.0"
+install_nextcloud_web_port: 8080
+
+install_nextcloud_mysql_database: "nextcloud"
+install_nextcloud_mysql_user: "nextcloud"
+install_nextcloud_mysql_password: "password"
+install_nextcloud_mysql_host: "127.0.0.1"
+
+#install_nextcloud_mysql_attr_ssl_key: ""
+#install_nextcloud_mysql_attr_ssl_cert: ""
+#install_nextcloud_mysql_attr_ssl_ca: ""
+#install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
+
+install_nextcloud_admin_user: "nextcloud"
+install_nextcloud_admin_password: "password"
+
+#install_nextcloud_redis_host: "127.0.0.1"
+#install_nextcloud_redis_host_port: "6379"
+#install_nextcloud_redis_host_password: "password"
+
+install_nextcloud_php_memory_limit: "512m"
+install_nextcloud_php_upload_limit: "512m"
+
+install_nextcloud_apache_disable_rewrite_ip: 0
+install_nextcloud_trusted_proxies: "127.0.0.1 localhost"
+install_nextcloud_trusted_domains: "http://my.nextcloud.domain.tld 127.0.0.1 localhost"
+install_nextcloud_overwritehost: "http://my.nextcloud.domain.tld"
+install_nextcloud_owerwriteprotocol: "http"
+install_nextcloud_owerwritecliurl: "{{ install_nextcloud_overwritehost }}"
+
 ```
 
 The best way is to modify these vars by copy the ./default/main.yml file into the ./vars and edit with your personnals requirements.
@@ -112,13 +144,45 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-all vars from to put/from your inventory
+
+inv_install_nextcloud_container_name: "nextcloud"
+inv_install_nextcloud_data_path: "/var/lib/nextcloud"
+inv_install_nextcloud_web_address: "0.0.0.0"
+inv_install_nextcloud_web_port: 8080
+
+inv_install_nextcloud_mysql_database: "nextcloud"
+inv_install_nextcloud_mysql_user: "nextcloud"
+inv_install_nextcloud_mysql_password: "password"
+inv_install_nextcloud_mysql_host: "127.0.0.1"
+
+#inv_install_nextcloud_mysql_attr_ssl_key: ""
+#inv_install_nextcloud_mysql_attr_ssl_cert: ""
+#inv_install_nextcloud_mysql_attr_ssl_ca: ""
+#inv_install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
+
+inv_install_nextcloud_admin_user: "nextcloud"
+inv_install_nextcloud_admin_password: "password"
+
+#inv_install_nextcloud_redis_host: "127.0.0.1"
+#inv_install_nextcloud_redis_host_port: "6379"
+#inv_install_nextcloud_redis_host_password: "password"
+
+inv_install_nextcloud_php_memory_limit: "512m"
+inv_install_nextcloud_php_upload_limit: "512m"
+
+inv_install_nextcloud_apache_disable_rewrite_ip: 0
+inv_install_nextcloud_trusted_proxies: "127.0.0.1 localhost"
+inv_install_nextcloud_trusted_domains: "http://my.nextcloud.domain.tld 127.0.0.1 localhost"
+inv_install_nextcloud_overwritehost: "http://my.nextcloud.domain.tld"
+inv_install_nextcloud_owerwriteprotocol: "http"
+inv_install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_overwritehost }}"
+
 ```
 
 ```YAML
 # From AWX / Tower
 ---
-all vars from to put/from AWX / Tower
+
 ```
 
 ### Run
@@ -126,8 +190,37 @@ all vars from to put/from AWX / Tower
 To run this role, you can copy the molecule/default/converge.yml playbook and add it into your playbook:
 
 ```YAML
----
-your converge.yml file here
+- name: "Include labocbz.install_nextcloud"
+  tags:
+    - "labocbz.install_nextcloud"
+  vars:
+    inv_install_nextcloud_container_name: "{{ inv_install_nextcloud_container_name }}"
+    inv_install_nextcloud_data_path: "{{ inv_install_nextcloud_data_path }}"
+    inv_install_nextcloud_web_address: "{{ inv_install_nextcloud_web_address }}"
+    inv_install_nextcloud_web_port: "{{ inv_install_nextcloud_web_port }}"
+    inv_install_nextcloud_mysql_database: "{{ inv_install_nextcloud_mysql_database }}"
+    inv_install_nextcloud_mysql_user: "{{ inv_install_nextcloud_mysql_user }}"
+    inv_install_nextcloud_mysql_password: "{{ inv_install_nextcloud_mysql_password }}"
+    inv_install_nextcloud_mysql_host: "{{ inv_install_nextcloud_mysql_host }}"
+    inv_install_nextcloud_mysql_attr_ssl_key: "{{ inv_install_nextcloud_mysql_attr_ssl_key }}"
+    inv_install_nextcloud_mysql_attr_ssl_cert: "{{ inv_install_nextcloud_mysql_attr_ssl_cert }}"
+    inv_install_nextcloud_mysql_attr_ssl_ca: "{{ inv_install_nextcloud_mysql_attr_ssl_ca }}"
+    inv_install_nextcloud_mysql_attr_ssl_verify_server_cert: "{{ inv_install_nextcloud_mysql_attr_ssl_verify_server_cert }}"
+    inv_install_nextcloud_admin_user: "{{ inv_install_nextcloud_admin_user }}"
+    inv_install_nextcloud_admin_password: "{{ inv_install_nextcloud_admin_password }}"
+    inv_install_nextcloud_redis_host: "{{ inv_install_nextcloud_redis_host }}"
+    inv_install_nextcloud_redis_host_port: "{{ inv_install_nextcloud_redis_host_port }}"
+    inv_install_nextcloud_redis_host_password: "{{ inv_install_nextcloud_redis_host_password }}"
+    inv_install_nextcloud_php_memory_limit: "{{ inv_install_nextcloud_php_memory_limit }}"
+    inv_install_nextcloud_php_upload_limit: "{{ inv_install_nextcloud_php_upload_limit }}"
+    inv_install_nextcloud_apache_disable_rewrite_ip: "{{ inv_install_nextcloud_apache_disable_rewrite_ip }}"
+    inv_install_nextcloud_trusted_proxies: "{{ inv_install_nextcloud_trusted_proxies }}"
+    inv_install_nextcloud_trusted_domains: "{{ inv_install_nextcloud_trusted_domains }}"
+    inv_install_nextcloud_overwritehost: "{{ inv_install_nextcloud_overwritehost }}"
+    inv_install_nextcloud_owerwriteprotocol: "{{ inv_install_nextcloud_owerwriteprotocol }}"
+    inv_install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_owerwritecliurl }}"
+  ansible.builtin.include_role:
+    name: "labocbz.install_nextcloud"
 ```
 
 ## Architectural Decisions Records
@@ -146,3 +239,5 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * [Ansible role documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
 * [Ansible Molecule documentation](https://molecule.readthedocs.io/)
+* [nextcloud](https://hub.docker.com/_/nextcloud)
+* [IMPORTANT NOTE / nextcloud](https://github.com/docker-library/docs/blob/master/nextcloud/README.md)

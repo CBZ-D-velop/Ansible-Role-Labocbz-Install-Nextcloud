@@ -1,1 +1,33 @@
 ---
+
+install_nextcloud_container_name: "nextcloud"
+install_nextcloud_data_path: "/var/lib/nextcloud"
+install_nextcloud_web_address: "0.0.0.0"
+install_nextcloud_web_port: 8080
+
+install_nextcloud_mysql_database: "nextcloud"
+install_nextcloud_mysql_user: "nextcloud"
+install_nextcloud_mysql_password: "password"
+install_nextcloud_mysql_host: "127.0.0.1"
+
+#install_nextcloud_mysql_attr_ssl_key: ""
+#install_nextcloud_mysql_attr_ssl_cert: ""
+#install_nextcloud_mysql_attr_ssl_ca: ""
+#install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
+
+install_nextcloud_admin_user: "nextcloud"
+install_nextcloud_admin_password: "password"
+
+#install_nextcloud_redis_host: "127.0.0.1"
+#install_nextcloud_redis_host_port: "6379"
+#install_nextcloud_redis_host_password: "password"
+
+install_nextcloud_php_memory_limit: "512m"
+install_nextcloud_php_upload_limit: "512m"
+
+install_nextcloud_apache_disable_rewrite_ip: 0
+install_nextcloud_trusted_proxies: "127.0.0.1 localhost"
+install_nextcloud_trusted_domains: "http://my.nextcloud.domain.tld 127.0.0.1 localhost"
+install_nextcloud_overwritehost: "http://my.nextcloud.domain.tld"
+install_nextcloud_owerwriteprotocol: "http"
+install_nextcloud_owerwritecliurl: "{{ install_nextcloud_overwritehost }}"
