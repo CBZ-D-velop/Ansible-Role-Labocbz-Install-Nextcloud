@@ -13,7 +13,7 @@ $CONFIG = [
 {% if install_nextcloud_instanceid | default(false) %}
     'installed' => true,
     'instanceid' => '{{ install_nextcloud_instanceid }}',
-    'passwordsalt' => '{{ install_nextcloud_passwordsalt }}',
+    'passwordsalt' => '{{ install_nextcloud_passwordsalt }}',
     'secret' => '{{ install_nextcloud_secret }}',
 {% else %}
     'installed' => false,
@@ -25,9 +25,9 @@ $CONFIG = [
     {% endfor %}
     ],
     'trusted_proxies' => [
-    {% for proxy in install_nextcloud_trusted_proxies | default([]) %}
+{% for proxy in install_nextcloud_trusted_proxies | default([]) %}
         "{{ proxy }}",
-    {% endfor %}
+{% endfor %}
     ],
     
     'datadirectory' => '{{ install_nextcloud_install_data_path }}',
