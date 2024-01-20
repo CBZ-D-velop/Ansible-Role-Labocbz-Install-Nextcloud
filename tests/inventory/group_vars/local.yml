@@ -1,1 +1,45 @@
 ---
+inv_install_nextcloud_install_path: "/var/www/html/my-nextcloud-server.domain.tld"
+inv_install_nextcloud_install_data_path: "/var/lib/nextcloud"
+inv_install_nextcloud_apache_system_user: "www-data"
+inv_install_nextcloud_apache_system_group: "www-data"
+inv_install_nextcloud_version: "27.1.5"
+
+inv_install_nextcloud_default_locale: "en_US"
+inv_install_nextcloud_default_phone_region: "GB"
+inv_install_nextcloud_force_locale: "{{ inv_install_nextcloud_default_locale }}"
+inv_install_nextcloud_default_timezone: "Europe/Berlin"
+inv_install_nextcloud_loglevel: "0"
+inv_install_nextcloud_debug: "true"
+
+inv_install_nextcloud_mysql_database: "nextcloud"
+inv_install_nextcloud_mysql_user: "nextcloud"
+inv_install_nextcloud_mysql_password: "password"
+inv_install_nextcloud_mysql_host: "127.0.0.1"
+inv_install_nextcloud_mysql_port: "3306"
+
+inv_install_nextcloud_mysql_attr_ssl_key: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.key"
+inv_install_nextcloud_mysql_attr_ssl_crt: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.crt"
+inv_install_nextcloud_mysql_attr_ssl_ca: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/ca-chain.pem.crt"
+inv_install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
+
+inv_install_nextcloud_redis_host: "{{ inventory_hostname }}"
+inv_install_nextcloud_redis_port: "6379"
+inv_install_nextcloud_redis_password: "mySecret"
+
+# AFTER INSTALL IF MODIFICATIONS ARE NEEDED
+inv_install_nextcloud_instanceid: "ocomj487bj5b"
+inv_install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
+inv_install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+
+
+inv_install_nextcloud_trusted_proxies:
+  - "127.0.0.1"
+  - "localhost"
+inv_install_nextcloud_trusted_domains:
+  - "127.0.0.1"
+  - "localhost"
+
+inv_install_nextcloud_overwritehost: "localhost"
+inv_install_nextcloud_owerwriteprotocol: "https"
+inv_install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_owerwriteprotocol }}://{{ inv_install_nextcloud_overwritehost }}"

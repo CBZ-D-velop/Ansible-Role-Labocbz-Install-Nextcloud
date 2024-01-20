@@ -1,1 +1,75 @@
 ---
+- name: "Install Nextlcoud"
+  notify:
+    - "Reload Apache2"
+  block:
+    - name: "Install LibMagic"
+      ansible.builtin.package:
+        update_cache: true
+        name:
+          - "libmagickcore-6.q16-6-extra"
+
+    - name: "Check if data dir exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_nextcloud_install_data_path }}"
+
+    - name: "Create data dir"
+      when: not file_check.stat.exists
+      ansible.builtin.file:
+        path: "{{ install_nextcloud_install_data_path }}"
+        state: directory
+        recurse: yes
+        owner: "{{ install_nextcloud_apache_system_user }}"
+        group: "{{ install_nextcloud_apache_system_group }}"
+        mode: "0755"
+
+    - name: "Check if install dir exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_nextcloud_install_path }}/nextcloud"
+
+    - name: "Create install dir"
+      when: not file_check.stat.exists
+      ansible.builtin.file:
+        path: "{{ install_nextcloud_install_path }}/nextcloud"
+        state: directory
+        recurse: yes
+        owner: "{{ install_nextcloud_apache_system_user }}"
+        group: "{{ install_nextcloud_apache_system_group }}"
+        mode: "0755"
+
+    - name: "Deploy Nextcloud from sources"
+      when: not file_check.stat.exists
+      ansible.builtin.unarchive:
+        dest: "{{ install_nextcloud_install_path }}"
+        src: "https://download.nextcloud.com/server/releases/nextcloud-{{ install_nextcloud_version }}.zip"
+        owner: "{{ install_nextcloud_apache_system_user }}"
+        group: "{{ install_nextcloud_apache_system_group }}"
+        mode: "0755"
+        remote_src: yes
+        exclude:
+          - "nextcloud/config/config.php"
+
+    - name: "Check if custom_apps dir exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_nextcloud_install_path }}/nextcloud/custom_apps"
+
+    - name: "Create custim_apps dir"
+      when: not file_check.stat.exists
+      ansible.builtin.file:
+        path: "{{ install_nextcloud_install_path }}/nextcloud/custom_apps"
+        state: directory
+        recurse: yes
+        owner: "{{ install_nextcloud_apache_system_user }}"
+        group: "{{ install_nextcloud_apache_system_group }}"
+        mode: "0755"
+
+    - name: "Import config.php"
+      ansible.builtin.template:
+        src: "templates/config.php.j2"
+        dest: "{{ install_nextcloud_install_path }}/nextcloud/config/config.php"
+        owner: "{{ install_nextcloud_apache_system_user }}"
+        group: "{{ install_nextcloud_apache_system_group }}"
+        mode: "0755"
