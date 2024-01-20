@@ -12,10 +12,21 @@
 
 ![Tag: Ansible](https://img.shields.io/badge/Tech-Ansible-orange)
 ![Tag: Debian](https://img.shields.io/badge/Tech-Debian-orange)
-![Tag: Docker](https://img.shields.io/badge/Tech-Docker-orange)
 ![Tag: Nextcloud](https://img.shields.io/badge/Tech-Nextcloud-orange)
 
 An Ansible role to install and configure a Nextcloud server based on Docker on your hosts.
+
+This Ansible role simplifies the process of installing Nextcloud, an online storage service, at a specified location. It supports configuration to be served either by a web server handling PHP or by PHP FPM. The installation is performed with a specified version of Nextcloud using official server binaries.
+
+The role generates the config.php configuration file for the initial launch. During installation via the web interface, Nextcloud performs database migration, adding cryptographic information such as salt and secret.
+
+After installation, this role allows for rerunning the process to update parameters, for instance, adding a Redis server. Additionally, you can define, after installation by importing values from the config.php edited during web installation, the generated secret, salt, and instanceid. This prevents Nextcloud from requiring a reinstallation of the platform.
+
+Database management is integrated, taking into account SSL and mTLS options, allowing for customization based on specific needs. Similarly, Redis management is included, though SSL and mTLS options are not supported.
+
+It's important to note that this role does not handle the creation of users or databases for MySQL or any other database management system, and it does not manage the installation of a web server.
+
+Utilize this Ansible role to efficiently automate the installation of Nextcloud, ensuring a customizable configuration to meet your specific needs, including secure management of the database and Redis.
 
 ## Folder structure
 
@@ -128,6 +139,11 @@ install_nextcloud_redis_host: "{{ inventory_hostname }}"
 install_nextcloud_redis_port: "6379"
 install_nextcloud_redis_password: "mySecret"
 
+# AFTER INSTALL IF MODIFICATIONS ARE NEEDED
+#install_nextcloud_instanceid: "ocomj487bj5b"
+#install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
+#install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+
 install_nextcloud_trusted_proxies:
   - "127.0.0.1"
   - "localhost"
@@ -150,7 +166,6 @@ In order to surchage vars, you have multiples possibilities but for mains cases 
 ```YAML
 # From inventory
 ---
-
 inv_install_nextcloud_install_path: "/var/www/html/my-nextcloud-server.domain.tld"
 inv_install_nextcloud_install_data_path: "/var/lib/nextcloud"
 inv_install_nextcloud_apache_system_user: "www-data"
@@ -178,6 +193,12 @@ inv_install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
 inv_install_nextcloud_redis_host: "{{ inventory_hostname }}"
 inv_install_nextcloud_redis_port: "6379"
 inv_install_nextcloud_redis_password: "mySecret"
+
+# AFTER INSTALL IF MODIFICATIONS ARE NEEDED
+inv_install_nextcloud_instanceid: "ocomj487bj5b"
+inv_install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
+inv_install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+
 
 inv_install_nextcloud_trusted_proxies:
   - "127.0.0.1"
@@ -233,6 +254,10 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_nextcloud_overwritehost: "{{ inv_install_nextcloud_overwritehost }}"
     install_nextcloud_owerwriteprotocol: "{{ inv_install_nextcloud_owerwriteprotocol }}"
     install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_owerwritecliurl }}"
+    #
+    install_nextcloud_instanceid: "{{ inv_install_nextcloud_instanceid }}"
+    install_nextcloud_passwordsalt: "{{ inv_install_nextcloud_passwordsalt }}"
+    install_nextcloud_secret: "{{ inv_install_nextcloud_secret }}"
   ansible.builtin.include_role:
     name: "labocbz.install_nextcloud"
 ```
@@ -245,6 +270,15 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * First init of this role with the bootstrap_role playbook by Lord Robin Crombez
 
+### 2024-01-20: Nextcloud installed
+
+* Role install and configure Nextcloud for the first lauch
+* You can use your prefered version of NC with the version parametter
+* You can run multiples times the role, by adding salt, secret and instanceid in role calling after the initial install phase
+* You need to install a webserver
+* You need to install the database server
+* You need to install Redis, if you want
+
 ## Authors
 
 * Lord Robin Crombez
@@ -253,5 +287,3 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * [Ansible role documentation](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html)
 * [Ansible Molecule documentation](https://molecule.readthedocs.io/)
-* [nextcloud](https://hub.docker.com/_/nextcloud)
-* [IMPORTANT NOTE / nextcloud](https://github.com/docker-library/docs/blob/master/nextcloud/README.md)

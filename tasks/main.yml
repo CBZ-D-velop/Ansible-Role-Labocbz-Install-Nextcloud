@@ -66,24 +66,10 @@
         group: "{{ install_nextcloud_apache_system_group }}"
         mode: "0755"
 
-    - name: "Check if config file exist"
-      register: file_check
-      ansible.builtin.stat:
-        path: "{{ install_nextcloud_install_path }}/nextcloud/config/config.php"
-
     - name: "Import config.php"
-      when: not file_check.stat.exists
       ansible.builtin.template:
         src: "templates/config.php.j2"
         dest: "{{ install_nextcloud_install_path }}/nextcloud/config/config.php"
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
-        mode: "0755"
-
-    - name: "Import config.php.ansible (in case of config already present)"
-      ansible.builtin.template:
-        src: "templates/config.php.j2"
-        dest: "{{ install_nextcloud_install_path }}/nextcloud/config/config.php.ansible"
         owner: "{{ install_nextcloud_apache_system_user }}"
         group: "{{ install_nextcloud_apache_system_group }}"
         mode: "0755"

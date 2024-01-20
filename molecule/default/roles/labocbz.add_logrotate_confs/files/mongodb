@@ -1,0 +1,28 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/mongodb/*.log
+{
+    #
+    su mongodb mongodb
+    daily
+    missingok
+    rotate 31   
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    
+    #
+    create 0700 mongodb mongodb
+    #
+    postrotate
+        systemctl restart mongod > /dev/null
+    endscript
+    #
+}

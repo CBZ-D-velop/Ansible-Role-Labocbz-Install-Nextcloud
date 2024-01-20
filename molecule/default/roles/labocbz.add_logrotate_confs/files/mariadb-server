@@ -1,0 +1,28 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/mysql/*.log
+{
+    #
+    su mysql mysql
+    daily
+    missingok
+    rotate 31
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    
+    #
+    create 0700 mysql mysql
+    #
+    postrotate
+        systemctl restart mariadb > /dev/null
+    endscript
+    #
+}

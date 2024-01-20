@@ -27,6 +27,12 @@ inv_install_nextcloud_redis_host: "{{ inventory_hostname }}"
 inv_install_nextcloud_redis_port: "6379"
 inv_install_nextcloud_redis_password: "mySecret"
 
+# AFTER INSTALL IF MODIFICATIONS ARE NEEDED
+inv_install_nextcloud_instanceid: "ocomj487bj5b"
+inv_install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
+inv_install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+
+
 inv_install_nextcloud_trusted_proxies:
   - "127.0.0.1"
   - "localhost"

@@ -1,0 +1,29 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/apache2/modsec_audit.log
+/var/www/html/*/modsec_audit.log
+{
+    #
+    su www-data www-data
+    daily
+    missingok
+    rotate 31
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    
+    #
+    create 775 www-data www-data
+    #
+    postrotate
+        /etc/init.d/apache2 reload > /dev/null
+    endscript
+    #
+}

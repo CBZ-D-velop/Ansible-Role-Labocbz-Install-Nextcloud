@@ -1,0 +1,20 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+<IfModule mpm_prefork_module>
+    # prefork MPM
+    # StartServers: number of server processes to start
+    # MinSpareServers: minimum number of server processes which are kept spare
+    # MaxSpareServers: maximum number of server processes which are kept spare
+    # MaxRequestWorkers: maximum number of server processes allowed to start
+    # MaxConnectionsPerChild: maximum number of requests a server process serves
+
+    StartServers            {{ install_apache_mpm_start_servers }}
+    MinSpareServers         {{ install_apache_mpm_min_spare_servers }}
+    MaxSpareServers         {{ install_apache_mpm_max_spare_servers }}
+    MaxRequestWorkers       {{ install_apache_mpm_max_request_workers }}
+    MaxConnectionsPerChild  {{ install_apache_mpm_max_connections_per_child }}
+</IfModule>
