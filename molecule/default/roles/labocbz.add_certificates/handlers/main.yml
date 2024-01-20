@@ -1,5 +1,0 @@
----
-- name: "Update CAs"
-  register: output
-  changed_when: output.rc != 0
-  ansible.builtin.command: "update-ca-certificates"
