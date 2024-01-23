@@ -33,6 +33,7 @@
         install_nextcloud_mysql_attr_ssl_ca: "{{ inv_install_nextcloud_mysql_attr_ssl_ca }}"
         install_nextcloud_mysql_attr_ssl_verify_server_cert: "{{ inv_install_nextcloud_mysql_attr_ssl_verify_server_cert }}"
         install_nextcloud_redis_host: "{{ inv_install_nextcloud_redis_host }}"
+        install_nextcloud_redis_port: "{{ inv_install_nextcloud_redis_port }}"
         install_nextcloud_redis_password: "{{ inv_install_nextcloud_redis_password }}"
         install_nextcloud_trusted_proxies: "{{ inv_install_nextcloud_trusted_proxies }}"
         install_nextcloud_trusted_domains: "{{ inv_install_nextcloud_trusted_domains }}"
