@@ -1,0 +1,28 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/elasticsearch/*.log
+{
+    #
+    su elasticsearch elasticsearch
+    daily
+    missingok
+    rotate 31   
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    
+    #
+    create 0700 elasticsearch elasticsearch
+    #
+    postrotate
+        systemctl restart elasticsearch > /dev/null
+    endscript
+    #
+}

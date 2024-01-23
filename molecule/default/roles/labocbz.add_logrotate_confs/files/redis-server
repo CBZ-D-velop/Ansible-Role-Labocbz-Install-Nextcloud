@@ -1,0 +1,29 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/redis/*.log
+/var/log/redis/*/*.log
+{
+    #
+    su redis redis
+    daily
+    missingok
+    rotate 31
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    minsize 1M
+    #
+    create 0700 redis redis
+    #
+    #postrotate
+    #    systemctl restart redis > /dev/null
+    #endscript
+    #
+}

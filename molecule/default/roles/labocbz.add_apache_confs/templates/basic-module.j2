@@ -1,0 +1,32 @@
+    # Handler Certbot / Letsencrypt validations for SSL
+    <LocationMatch "^/.well-known/acme-challenge/">
+            ProxyPass !
+            ProxyPassReverse !
+            Allow from all
+    </LocationMatch>
+
+    # Enable access to file, but disable indexing
+    <Directory {{ add_apache_confs_base_document_root }}/{{ vhost.server.name }}>
+            Options -Indexes +FollowSymlinks
+            AllowOverride All
+            Require all granted
+    </Directory>
+
+    # Deny any direct access to .htaccess
+    <Files .htaccess>
+            Order allow,deny
+            Deny from all
+    </Files>
+
+    Alias /http-check {{ add_apache_confs_base_document_root }}/{{ vhost.server.name }}/http-check
+    {% if vhost.proxy | default(false) %}
+    ProxyPass /http-check/ !
+    {% endif %}
+    SetEnvIf Request_URI "^/http-check/index.gif$" blackhole-log
+    <Directory "{{ add_apache_confs_base_document_root }}/{{ vhost.server.name }}/http-check">
+            Options -Indexes +FollowSymLinks
+            AllowOverride None
+            Order allow,deny
+            Require all granted
+            Allow from all
+    </Directory>

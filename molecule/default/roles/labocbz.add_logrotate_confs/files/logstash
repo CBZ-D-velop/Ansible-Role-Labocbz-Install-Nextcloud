@@ -1,0 +1,28 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+/var/log/logstash/*.log
+{
+    #
+    su logstash logstash
+    daily
+    missingok
+    rotate 31
+    compress
+    delaycompress
+    notifempty
+    sharedscripts
+    dateext
+    dateformat -%Y-%m-%d
+    
+    #
+    create 0700 logstash logstash
+    #
+    postrotate
+        systemctl restart logstash > /dev/null
+    endscript
+    #
+}

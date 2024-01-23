@@ -39,6 +39,9 @@
         install_nextcloud_overwritehost: "{{ inv_install_nextcloud_overwritehost }}"
         install_nextcloud_owerwriteprotocol: "{{ inv_install_nextcloud_owerwriteprotocol }}"
         install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_owerwritecliurl }}"
+        install_nextcloud_admin_user: "{{ inv_install_nextcloud_admin_user }}"
+        install_nextcloud_admin_password: "{{ inv_install_nextcloud_admin_password }}"
+        install_nextcloud_clean_cron_file: "{{ inv_install_nextcloud_clean_cron_file }}"
         #
         install_nextcloud_instanceid: "{{ inv_install_nextcloud_instanceid }}"
         install_nextcloud_passwordsalt: "{{ inv_install_nextcloud_passwordsalt }}"

@@ -1,0 +1,13 @@
+##############################
+#                            #
+# Ansible / Tower managed on #
+#                            #
+##############################
+
+<IfModule qos_module>
+   QS_ClientEntries 10240
+   QS_SrvMaxConnPerIP 256
+   MaxClients 1024
+   QS_SrvMaxConnClose 128
+   QS_SrvMinDataRate 256 2048
+</IfModule>

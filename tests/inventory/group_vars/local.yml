@@ -12,6 +12,9 @@ inv_install_nextcloud_default_timezone: "Europe/Berlin"
 inv_install_nextcloud_loglevel: "0"
 inv_install_nextcloud_debug: "true"
 
+inv_install_nextcloud_admin_user: "nextcloud"
+inv_install_nextcloud_admin_password: "nextcloud"
+
 inv_install_nextcloud_mysql_database: "nextcloud"
 inv_install_nextcloud_mysql_user: "nextcloud"
 inv_install_nextcloud_mysql_password: "password"
@@ -28,10 +31,11 @@ inv_install_nextcloud_redis_port: "6379"
 inv_install_nextcloud_redis_password: "mySecret"
 
 # AFTER INSTALL IF MODIFICATIONS ARE NEEDED
-inv_install_nextcloud_instanceid: "ocomj487bj5b"
-inv_install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
-inv_install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+#inv_install_nextcloud_instanceid: "ocrxwfyhv7ti"
+#inv_install_nextcloud_passwordsalt: "6iQBL9eRly9Mf+dhK1WUT80CVo+tJd"
+#inv_install_nextcloud_secret: "y/8CCjRqJKLORuivu393EoFORvaVGNm1rY58VEYR6ZILc55I"
 
+inv_install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 
 inv_install_nextcloud_trusted_proxies:
   - "127.0.0.1"

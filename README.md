@@ -124,6 +124,9 @@ install_nextcloud_default_timezone: "Europe/Berlin"
 install_nextcloud_loglevel: "0"
 install_nextcloud_debug: "true"
 
+install_nextcloud_admin_user: "nextcloud"
+install_nextcloud_admin_password: "nextcloud"
+
 install_nextcloud_mysql_database: "nextcloud"
 install_nextcloud_mysql_user: "nextcloud"
 install_nextcloud_mysql_password: "password"
@@ -138,6 +141,8 @@ install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
 install_nextcloud_redis_host: "{{ inventory_hostname }}"
 install_nextcloud_redis_port: "6379"
 install_nextcloud_redis_password: "mySecret"
+
+install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 
 # AFTER INSTALL IF MODIFICATIONS ARE NEEDED
 #install_nextcloud_instanceid: "ocomj487bj5b"
@@ -179,6 +184,9 @@ inv_install_nextcloud_default_timezone: "Europe/Berlin"
 inv_install_nextcloud_loglevel: "0"
 inv_install_nextcloud_debug: "true"
 
+inv_install_nextcloud_admin_user: "nextcloud"
+inv_install_nextcloud_admin_password: "nextcloud"
+
 inv_install_nextcloud_mysql_database: "nextcloud"
 inv_install_nextcloud_mysql_user: "nextcloud"
 inv_install_nextcloud_mysql_password: "password"
@@ -195,10 +203,11 @@ inv_install_nextcloud_redis_port: "6379"
 inv_install_nextcloud_redis_password: "mySecret"
 
 # AFTER INSTALL IF MODIFICATIONS ARE NEEDED
-inv_install_nextcloud_instanceid: "ocomj487bj5b"
-inv_install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
-inv_install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+inv_install_nextcloud_instanceid: "ocrxwfyhv7ti"
+inv_install_nextcloud_passwordsalt: "6iQBL9eRly9Mf+dhK1WUT80CVo+tJd"
+inv_install_nextcloud_secret: "y/8CCjRqJKLORuivu393EoFORvaVGNm1rY58VEYR6ZILc55I"
 
+inv_install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 
 inv_install_nextcloud_trusted_proxies:
   - "127.0.0.1"
@@ -254,6 +263,9 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_nextcloud_overwritehost: "{{ inv_install_nextcloud_overwritehost }}"
     install_nextcloud_owerwriteprotocol: "{{ inv_install_nextcloud_owerwriteprotocol }}"
     install_nextcloud_owerwritecliurl: "{{ inv_install_nextcloud_owerwritecliurl }}"
+    install_nextcloud_admin_user: "{{ inv_install_nextcloud_admin_user }}"
+    install_nextcloud_admin_password: "{{ inv_install_nextcloud_admin_password }}"
+    install_nextcloud_clean_cron_file: "{{ inv_install_nextcloud_clean_cron_file }}"
     #
     install_nextcloud_instanceid: "{{ inv_install_nextcloud_instanceid }}"
     install_nextcloud_passwordsalt: "{{ inv_install_nextcloud_passwordsalt }}"
@@ -278,6 +290,11 @@ Here you can put your change to keep a trace of your work and decisions.
 * You need to install a webserver
 * You need to install the database server
 * You need to install Redis, if you want
+
+### 2024-01-23: Install with CLI
+
+* Role install Nextcloud with CLI and command line
+* Role add a cron task for cron.php
 
 ## Authors
 
