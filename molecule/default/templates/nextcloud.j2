@@ -2,7 +2,7 @@
 
     Alias {{ conf.alias.url }} {{ conf.alias.path }}/
 
-    <Directory {{ conf.nextcloud_data_path}}>
+    <Directory {{ conf.alias.path}}>
         Require all granted
         AllowOverride All
         Options FollowSymLinks MultiViews

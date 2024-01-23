@@ -12,6 +12,9 @@ install_nextcloud_default_timezone: "Europe/Berlin"
 install_nextcloud_loglevel: "0"
 install_nextcloud_debug: "true"
 
+install_nextcloud_admin_user: "nextcloud"
+install_nextcloud_admin_password: "nextcloud"
+
 install_nextcloud_mysql_database: "nextcloud"
 install_nextcloud_mysql_user: "nextcloud"
 install_nextcloud_mysql_password: "password"
@@ -26,6 +29,8 @@ install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
 install_nextcloud_redis_host: "{{ inventory_hostname }}"
 install_nextcloud_redis_port: "6379"
 install_nextcloud_redis_password: "mySecret"
+
+install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 
 # AFTER INSTALL IF MODIFICATIONS ARE NEEDED
 #install_nextcloud_instanceid: "ocomj487bj5b"
