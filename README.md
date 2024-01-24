@@ -149,6 +149,13 @@ install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 #install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
 #install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
 
+install_nextcloud_mail_from_address: "my.nextcloud" #@my.domain.tld
+install_nextcloud_mail_smtpmode: "smtp"
+install_nextcloud_mail_sendmailmode: "smtp"
+install_nextcloud_mail_domain: "my.domain.tld"
+install_nextcloud_mail_smtphost: "127.0.0.1"
+install_nextcloud_mail_smtpport: 25
+
 install_nextcloud_trusted_proxies:
   - "127.0.0.1"
   - "localhost"
@@ -209,6 +216,13 @@ inv_install_nextcloud_secret: "y/8CCjRqJKLORuivu393EoFORvaVGNm1rY58VEYR6ZILc55I"
 
 inv_install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 
+inv_install_nextcloud_mail_from_address: "my.nextcloud" #@my.domain.tld
+inv_install_nextcloud_mail_smtpmode: "smtp"
+inv_install_nextcloud_mail_sendmailmode: "smtp"
+inv_install_nextcloud_mail_domain: "my.domain.tld"
+inv_install_nextcloud_mail_smtphost: "127.0.0.1"
+inv_install_nextcloud_mail_smtpport: 25
+
 inv_install_nextcloud_trusted_proxies:
   - "127.0.0.1"
   - "localhost"
@@ -268,6 +282,13 @@ To run this role, you can copy the molecule/default/converge.yml playbook and ad
     install_nextcloud_admin_password: "{{ inv_install_nextcloud_admin_password }}"
     install_nextcloud_clean_cron_file: "{{ inv_install_nextcloud_clean_cron_file }}"
     #
+    install_nextcloud_mail_from_address: "{{ inv_install_nextcloud_mail_from_address }}"
+    install_nextcloud_mail_smtpmode: "{{ inv_install_nextcloud_mail_smtpmode }}"
+    install_nextcloud_mail_sendmailmode: "{{ inv_install_nextcloud_mail_sendmailmode }}"
+    install_nextcloud_mail_domain: "{{ inv_install_nextcloud_mail_domain }}"
+    install_nextcloud_mail_smtphost: "{{ inv_install_nextcloud_mail_smtphost }}"
+    install_nextcloud_mail_smtpport: "{{ inv_install_nextcloud_mail_smtpport }}"
+    #
     install_nextcloud_instanceid: "{{ inv_install_nextcloud_instanceid }}"
     install_nextcloud_passwordsalt: "{{ inv_install_nextcloud_passwordsalt }}"
     install_nextcloud_secret: "{{ inv_install_nextcloud_secret }}"
@@ -296,6 +317,11 @@ Here you can put your change to keep a trace of your work and decisions.
 
 * Role install Nextcloud with CLI and command line
 * Role add a cron task for cron.php
+
+### 2024-01-24: Added Email support
+
+* You can now add your emails informations
+* Added lockfile for Redis
 
 ## Authors
 

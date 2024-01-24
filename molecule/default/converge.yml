@@ -44,6 +44,13 @@
         install_nextcloud_admin_password: "{{ inv_install_nextcloud_admin_password }}"
         install_nextcloud_clean_cron_file: "{{ inv_install_nextcloud_clean_cron_file }}"
         #
+        install_nextcloud_mail_from_address: "{{ inv_install_nextcloud_mail_from_address }}"
+        install_nextcloud_mail_smtpmode: "{{ inv_install_nextcloud_mail_smtpmode }}"
+        install_nextcloud_mail_sendmailmode: "{{ inv_install_nextcloud_mail_sendmailmode }}"
+        install_nextcloud_mail_domain: "{{ inv_install_nextcloud_mail_domain }}"
+        install_nextcloud_mail_smtphost: "{{ inv_install_nextcloud_mail_smtphost }}"
+        install_nextcloud_mail_smtpport: "{{ inv_install_nextcloud_mail_smtpport }}"
+        #
         install_nextcloud_instanceid: "{{ inv_install_nextcloud_instanceid }}"
         install_nextcloud_passwordsalt: "{{ inv_install_nextcloud_passwordsalt }}"
         install_nextcloud_secret: "{{ inv_install_nextcloud_secret }}"

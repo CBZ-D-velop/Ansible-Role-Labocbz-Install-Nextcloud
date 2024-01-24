@@ -37,6 +37,7 @@ install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
 #install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
 #install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
 
+
 install_nextcloud_trusted_proxies:
   - "127.0.0.1"
   - "localhost"
@@ -47,3 +48,10 @@ install_nextcloud_trusted_domains:
 install_nextcloud_overwritehost: "localhost"
 install_nextcloud_owerwriteprotocol: "https"
 install_nextcloud_owerwritecliurl: "{{ install_nextcloud_owerwriteprotocol }}://{{ install_nextcloud_overwritehost }}"
+
+install_nextcloud_mail_from_address: "my.nextcloud" #@my.domain.tld
+install_nextcloud_mail_smtpmode: "smtp"
+install_nextcloud_mail_sendmailmode: "smtp"
+install_nextcloud_mail_domain: "my.domain.tld"
+install_nextcloud_mail_smtphost: "127.0.0.1"
+install_nextcloud_mail_smtpport: 25
