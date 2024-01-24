@@ -127,10 +127,19 @@ $CONFIG = [
     'filelocking.enabled' => true,
     'memcache.distributed' => '\\OC\\Memcache\\Redis',
     'memcache.local' => '\\OC\\Memcache\\Redis',
+    'filelocking.ttl' => 3600,
     'redis' => [
         'host' => '{{ install_nextcloud_redis_host }}', // can also be a unix domain socket: '/tmp/redis.sock'
         'port' => '{{ install_nextcloud_redis_port }}',
         'password' => '{{ install_nextcloud_redis_password }}', // Optional: if not defined, no password will be used.
     ],
+{% endif %}
+{% if install_nextcloud_redis_host | default(false) %}
+  'mail_from_address' => '{{ install_nextcloud_mail_from_address }}',
+  'mail_smtpmode' => '{{ install_nextcloud_mail_smtpmode }}',
+  'mail_sendmailmode' => '{{ install_nextcloud_mail_sendmailmode }}',
+  'mail_domain' => '{{ install_nextcloud_mail_domain }}',
+  'mail_smtphost' => '{{ install_nextcloud_mail_smtphost }}',
+  'mail_smtpport' => '{{ install_nextcloud_mail_smtpport }}',
 {% endif %}
 ];
