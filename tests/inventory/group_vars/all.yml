@@ -1,0 +1,64 @@
+---
+inv_prepare_host__system_users:
+  - login: "redis"
+    group: "redis"
+  - login: "mysql"
+    group: "mysql"
+  - login: "www-data"
+    group: "www-data"
+
+inv_install_nextcloud__install_path: "/var/www/html/my-nextcloud-server.domain.tld"
+inv_install_nextcloud__install_data_path: "/var/lib/nextcloud"
+inv_install_nextcloud__apache_system_user: "www-data"
+inv_install_nextcloud__apache_system_group: "www-data"
+inv_install_nextcloud__version: "27.1.5"
+
+inv_install_nextcloud__default_locale: "en_US"
+inv_install_nextcloud__default_phone_region: "GB"
+inv_install_nextcloud__force_locale: "{{ inv_install_nextcloud__default_locale }}"
+inv_install_nextcloud__default_timezone: "Europe/Berlin"
+inv_install_nextcloud__loglevel: "0"
+inv_install_nextcloud__debug: "true"
+
+inv_install_nextcloud__admin_user: "nextcloud"
+inv_install_nextcloud__admin_password: "nextcloud"
+
+inv_install_nextcloud__mysql_database: "nextcloud"
+inv_install_nextcloud__mysql_user: "nextcloud"
+inv_install_nextcloud__mysql_password: "password"
+inv_install_nextcloud__mysql_host: "127.0.0.1"
+inv_install_nextcloud__mysql_port: "3306"
+
+inv_install_nextcloud__mysql_attr_ssl_key: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.key"
+inv_install_nextcloud__mysql_attr_ssl_crt: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.crt"
+inv_install_nextcloud__mysql_attr_ssl_ca: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/ca-chain.pem.crt"
+inv_install_nextcloud__mysql_attr_ssl_verify_server_cert: "true"
+
+inv_install_nextcloud__redis_host: "{{ inventory_hostname }}"
+inv_install_nextcloud__redis_port: "6379"
+inv_install_nextcloud__redis_password: "mySecret"
+
+# AFTER INSTALL IF MODIFICATIONS ARE NEEDED
+#inv_install_nextcloud__instanceid: "ocrxwfyhv7ti"
+#inv_install_nextcloud__passwordsalt: "6iQBL9eRly9Mf+dhK1WUT80CVo+tJd"
+#inv_install_nextcloud__secret: "y/8CCjRqJKLORuivu393EoFORvaVGNm1rY58VEYR6ZILc55I"
+
+inv_install_nextcloud__mail_from_address: "my.nextcloud" #@my.domain.tld
+inv_install_nextcloud__mail_smtpmode: "smtp"
+inv_install_nextcloud__mail_sendmailmode: "smtp"
+inv_install_nextcloud__mail_domain: "my.domain.tld"
+inv_install_nextcloud__mail_smtphost: "127.0.0.1"
+inv_install_nextcloud__mail_smtpport: 25
+
+inv_install_nextcloud__clean_cron_file: "ansible_nextcloud_cron_job"
+
+inv_install_nextcloud__trusted_proxies:
+  - "127.0.0.1"
+  - "localhost"
+inv_install_nextcloud__trusted_domains:
+  - "127.0.0.1"
+  - "localhost"
+
+inv_install_nextcloud__overwritehost: "localhost"
+inv_install_nextcloud__owerwriteprotocol: "https"
+inv_install_nextcloud__owerwritecliurl: "{{ inv_install_nextcloud__owerwriteprotocol }}://{{ inv_install_nextcloud__overwritehost }}"

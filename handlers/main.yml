@@ -1,7 +1,7 @@
 ---
 - name: "Reload Apache2"
-  register: install_apache_service_status
-  changed_when: install_apache_service_status.state != "reloaded"
+  register: install_apache__service_status
+  changed_when: install_apache__service_status.state != "reloaded"
   ansible.builtin.service:
     name: "apache2"
     state: "reloaded"

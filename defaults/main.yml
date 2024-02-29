@@ -1,57 +1,57 @@
 ---
-install_nextcloud_install_path: "/var/www/html/my-nextcloud-server.domain.tld"
-install_nextcloud_install_data_path: "/var/lib/nextcloud"
-install_nextcloud_apache_system_user: "www-data"
-install_nextcloud_apache_system_group: "www-data"
-install_nextcloud_version: "27.1.5"
+install_nextcloud__install_path: "/var/www/html/my-nextcloud-server.domain.tld"
+install_nextcloud__install_data_path: "/var/lib/nextcloud"
+install_nextcloud__apache_system_user: "www-data"
+install_nextcloud__apache_system_group: "www-data"
+install_nextcloud__version: "27.1.5"
 
-install_nextcloud_default_locale: "en_US"
-install_nextcloud_default_phone_region: "GB"
-install_nextcloud_force_locale: "{{ install_nextcloud_default_locale }}"
-install_nextcloud_default_timezone: "Europe/Berlin"
-install_nextcloud_loglevel: "0"
-install_nextcloud_debug: "true"
+install_nextcloud__default_locale: "en_US"
+install_nextcloud__default_phone_region: "GB"
+install_nextcloud__force_locale: "{{ install_nextcloud__default_locale }}"
+install_nextcloud__default_timezone: "Europe/Berlin"
+install_nextcloud__loglevel: "0"
+install_nextcloud__debug: "true"
 
-install_nextcloud_admin_user: "nextcloud"
-install_nextcloud_admin_password: "nextcloud"
+install_nextcloud__admin_user: "nextcloud"
+install_nextcloud__admin_password: "nextcloud"
 
-install_nextcloud_mysql_database: "nextcloud"
-install_nextcloud_mysql_user: "nextcloud"
-install_nextcloud_mysql_password: "password"
-install_nextcloud_mysql_host: "127.0.0.1"
-install_nextcloud_mysql_port: "3306"
+install_nextcloud__mysql_database: "nextcloud"
+install_nextcloud__mysql_user: "nextcloud"
+install_nextcloud__mysql_password: "password"
+install_nextcloud__mysql_host: "127.0.0.1"
+install_nextcloud__mysql_port: "3306"
 
-install_nextcloud_mysql_attr_ssl_key: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.key"
-install_nextcloud_mysql_attr_ssl_crt: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.crt"
-install_nextcloud_mysql_attr_ssl_ca: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/ca-chain.pem.crt"
-install_nextcloud_mysql_attr_ssl_verify_server_cert: "true"
+install_nextcloud__mysql_attr_ssl_key: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.key"
+install_nextcloud__mysql_attr_ssl_crt: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/my-nextcloud-server.domain.tld.pem.crt"
+install_nextcloud__mysql_attr_ssl_ca: "/var/www/html/my-nextcloud-server.domain.tld/ssl/my-nextcloud-server.domain.tld/ca-chain.pem.crt"
+install_nextcloud__mysql_attr_ssl_verify_server_cert: "true"
 
-install_nextcloud_redis_host: "{{ inventory_hostname }}"
-install_nextcloud_redis_port: "6379"
-install_nextcloud_redis_password: "mySecret"
+install_nextcloud__redis_host: "{{ inventory_hostname }}"
+install_nextcloud__redis_port: "6379"
+install_nextcloud__redis_password: "mySecret"
 
-install_nextcloud_clean_cron_file: "ansible_nextcloud_cron_job"
+install_nextcloud__clean_cron_file: "ansible_nextcloud_cron_job"
 
 # AFTER INSTALL IF MODIFICATIONS ARE NEEDED
-#install_nextcloud_instanceid: "ocomj487bj5b"
-#install_nextcloud_passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
-#install_nextcloud_secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
+#install_nextcloud__instanceid: "ocomj487bj5b"
+#install_nextcloud__passwordsalt: "PswA+Tk6fEPn6ae0wXtxEhapv2f8ti"
+#install_nextcloud__secret: "KqazwWa7/nkjXMAkgMlPQv1T+tp0oDLvfytrLC6VWtQYn+Um"
 
 
-install_nextcloud_trusted_proxies:
+install_nextcloud__trusted_proxies:
   - "127.0.0.1"
   - "localhost"
-install_nextcloud_trusted_domains:
+install_nextcloud__trusted_domains:
   - "127.0.0.1"
   - "localhost"
 
-install_nextcloud_overwritehost: "localhost"
-install_nextcloud_owerwriteprotocol: "https"
-install_nextcloud_owerwritecliurl: "{{ install_nextcloud_owerwriteprotocol }}://{{ install_nextcloud_overwritehost }}"
+install_nextcloud__overwritehost: "localhost"
+install_nextcloud__owerwriteprotocol: "https"
+install_nextcloud__owerwritecliurl: "{{ install_nextcloud__owerwriteprotocol }}://{{ install_nextcloud__overwritehost }}"
 
-install_nextcloud_mail_from_address: "my.nextcloud" #@my.domain.tld
-install_nextcloud_mail_smtpmode: "smtp"
-install_nextcloud_mail_sendmailmode: "smtp"
-install_nextcloud_mail_domain: "my.domain.tld"
-install_nextcloud_mail_smtphost: "127.0.0.1"
-install_nextcloud_mail_smtpport: 25
+install_nextcloud__mail_from_address: "my.nextcloud" #@my.domain.tld
+install_nextcloud__mail_smtpmode: "smtp"
+install_nextcloud__mail_sendmailmode: "smtp"
+install_nextcloud__mail_domain: "my.domain.tld"
+install_nextcloud__mail_smtphost: "127.0.0.1"
+install_nextcloud__mail_smtpport: 25

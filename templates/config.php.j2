@@ -10,61 +10,61 @@
 
 $CONFIG = [
     'maintenance' => false,
-{% if install_nextcloud_instanceid | default(false) %}
+{% if install_nextcloud__instanceid | default(false) %}
     'installed' => true,
-    'instanceid' => '{{ install_nextcloud_instanceid }}',
-    'passwordsalt' => '{{ install_nextcloud_passwordsalt }}',
-    'secret' => '{{ install_nextcloud_secret }}',
+    'instanceid' => '{{ install_nextcloud__instanceid }}',
+    'passwordsalt' => '{{ install_nextcloud__passwordsalt }}',
+    'secret' => '{{ install_nextcloud__secret }}',
 {% else %}
     'installed' => false,
 {% endif %}
     'mysql.utf8mb4' => true,
     'trusted_domains' => [
-    {% for domain in install_nextcloud_trusted_domains | default([]) %}
+    {% for domain in install_nextcloud__trusted_domains | default([]) %}
         "{{ domain }}",
     {% endfor %}
     ],
     'trusted_proxies' => [
-{% for proxy in install_nextcloud_trusted_proxies | default([]) %}
+{% for proxy in install_nextcloud__trusted_proxies | default([]) %}
         "{{ proxy }}",
 {% endfor %}
     ],
     
-    'datadirectory' => '{{ install_nextcloud_install_data_path }}',
-    'version' => '{{ install_nextcloud_version }}',
-    'tempdirectory' => '{{ install_nextcloud_install_path }}/tmp',
+    'datadirectory' => '{{ install_nextcloud__install_data_path }}',
+    'version' => '{{ install_nextcloud__version }}',
+    'tempdirectory' => '{{ install_nextcloud__install_path }}/tmp',
     
     'dbtype' => 'mysql',
-    'dbhost' => '{{ install_nextcloud_mysql_host }}',
-    'dbport' => '{{ install_nextcloud_mysql_port }}',
-    'dbname' => '{{ install_nextcloud_mysql_database }}',
-    'dbuser' => '{{ install_nextcloud_mysql_user }}',
-    'dbpassword' => '{{ install_nextcloud_mysql_password }}',
+    'dbhost' => '{{ install_nextcloud__mysql_host }}',
+    'dbport' => '{{ install_nextcloud__mysql_port }}',
+    'dbname' => '{{ install_nextcloud__mysql_database }}',
+    'dbuser' => '{{ install_nextcloud__mysql_user }}',
+    'dbpassword' => '{{ install_nextcloud__mysql_password }}',
     'dbtableprefix' => 'oc_',
-{% if install_nextcloud_mysql_attr_ssl_ca | default(false) %}
+{% if install_nextcloud__mysql_attr_ssl_ca | default(false) %}
     'dbdriveroptions' => [
         'PDO::MYSQL_ATTR_INIT_COMMAND' => 'SET wait_timeout = 28800',
-        'PDO::MYSQL_ATTR_SSL_CA' => '{{ install_nextcloud_mysql_attr_ssl_ca }}',
-{% if install_nextcloud_mysql_attr_ssl_key | default(false) %}
-        'PDO::MYSQL_ATTR_SSL_KEY' => '{{ install_nextcloud_mysql_attr_ssl_key }}',
-        'PDO::MYSQL_ATTR_SSL_CERT' => '{{ install_nextcloud_mysql_attr_ssl_crt }}',
+        'PDO::MYSQL_ATTR_SSL_CA' => '{{ install_nextcloud__mysql_attr_ssl_ca }}',
+{% if install_nextcloud__mysql_attr_ssl_key | default(false) %}
+        'PDO::MYSQL_ATTR_SSL_KEY' => '{{ install_nextcloud__mysql_attr_ssl_key }}',
+        'PDO::MYSQL_ATTR_SSL_CERT' => '{{ install_nextcloud__mysql_attr_ssl_crt }}',
 {% endif %}
-        'PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT' => {{ install_nextcloud_mysql_attr_ssl_verify_server_cert }}
+        'PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT' => {{ install_nextcloud__mysql_attr_ssl_verify_server_cert }}
     ],
 {% endif %}
     
     'default_language' => 'en',
     'force_language' => 'en',
-    'default_locale' => '{{ install_nextcloud_default_locale }}',
-    'default_phone_region' => '{{ install_nextcloud_default_phone_region }}',
-    'force_locale' => '{{ install_nextcloud_force_locale }}',
-    'default_timezone' => '{{ install_nextcloud_default_timezone }}',
+    'default_locale' => '{{ install_nextcloud__default_locale }}',
+    'default_phone_region' => '{{ install_nextcloud__default_phone_region }}',
+    'force_locale' => '{{ install_nextcloud__force_locale }}',
+    'default_timezone' => '{{ install_nextcloud__default_timezone }}',
     'knowledgebaseenabled' => true,
     'knowledgebase.embedded' => false,
     'allow_user_to_change_display_name' => true,
     
-    'skeletondirectory' => '{{ install_nextcloud_install_path }}/nextcloud/core/skeleton',
-    'templatedirectory' => '{{ install_nextcloud_install_path }}/nextcloud/templates',
+    'skeletondirectory' => '{{ install_nextcloud__install_path }}/nextcloud/core/skeleton',
+    'templatedirectory' => '{{ install_nextcloud__install_path }}/nextcloud/templates',
     
     'remember_login_cookie_lifetime' => 60*60*24*15,
     'session_lifetime' => 60 * 60 * 24,
@@ -82,9 +82,9 @@ $CONFIG = [
     'auth.storeCryptedPassword' => true,
     'hide_login_form' => false,
     
-    'overwritehost' => '{{ install_nextcloud_overwritehost }}',
-    'overwriteprotocol' => '{{ install_nextcloud_owerwriteprotocol }}',
-    'overwrite.cli.url' => '{{ install_nextcloud_owerwritecliurl }}',
+    'overwritehost' => '{{ install_nextcloud__overwritehost }}',
+    'overwriteprotocol' => '{{ install_nextcloud__owerwriteprotocol }}',
+    'overwrite.cli.url' => '{{ install_nextcloud__owerwritecliurl }}',
     
     'htaccess.RewriteBase' => '/',
     'htaccess.IgnoreFrontController' => false,
@@ -110,36 +110,36 @@ $CONFIG = [
     
     'log_type' => 'file',
     'log_type_audit' => 'file',
-    'logfile' => '{{ install_nextcloud_install_path }}/nextcloud.log',
-    'logfile_audit' => '{{ install_nextcloud_install_path }}/audit.log',
+    'logfile' => '{{ install_nextcloud__install_path }}/nextcloud.log',
+    'logfile_audit' => '{{ install_nextcloud__install_path }}/audit.log',
     'logfilemode' => '0755',
-    'loglevel' => {{ install_nextcloud_loglevel }},
-    'loglevel_frontend' => {{ install_nextcloud_loglevel }},
+    'loglevel' => {{ install_nextcloud__loglevel }},
+    'loglevel_frontend' => {{ install_nextcloud__loglevel }},
     'log.backtrace' => false,
     'logdateformat' => 'F d, Y H:i:s',
-    'logtimezone' => '{{ install_nextcloud_default_timezone }}',
+    'logtimezone' => '{{ install_nextcloud__default_timezone }}',
     'log_query' => false,
     'log_rotate_size' => 100 * 1024 * 1024,
-    'debug' => {{ install_nextcloud_debug }},
+    'debug' => {{ install_nextcloud__debug }},
     
-{% if install_nextcloud_redis_host | default(false) %}
+{% if install_nextcloud__redis_host | default(false) %}
     'memcache.locking' => '\\OC\\Memcache\\Redis',
     'filelocking.enabled' => true,
     'memcache.distributed' => '\\OC\\Memcache\\Redis',
     'memcache.local' => '\\OC\\Memcache\\Redis',
     'filelocking.ttl' => 3600,
     'redis' => [
-        'host' => '{{ install_nextcloud_redis_host }}', // can also be a unix domain socket: '/tmp/redis.sock'
-        'port' => '{{ install_nextcloud_redis_port }}',
-        'password' => '{{ install_nextcloud_redis_password }}', // Optional: if not defined, no password will be used.
+        'host' => '{{ install_nextcloud__redis_host }}', // can also be a unix domain socket: '/tmp/redis.sock'
+        'port' => '{{ install_nextcloud__redis_port }}',
+        'password' => '{{ install_nextcloud__redis_password }}', // Optional: if not defined, no password will be used.
     ],
 {% endif %}
-{% if install_nextcloud_redis_host | default(false) %}
-  'mail_from_address' => '{{ install_nextcloud_mail_from_address }}',
-  'mail_smtpmode' => '{{ install_nextcloud_mail_smtpmode }}',
-  'mail_sendmailmode' => '{{ install_nextcloud_mail_sendmailmode }}',
-  'mail_domain' => '{{ install_nextcloud_mail_domain }}',
-  'mail_smtphost' => '{{ install_nextcloud_mail_smtphost }}',
-  'mail_smtpport' => '{{ install_nextcloud_mail_smtpport }}',
+{% if install_nextcloud__redis_host | default(false) %}
+  'mail_from_address' => '{{ install_nextcloud__mail_from_address }}',
+  'mail_smtpmode' => '{{ install_nextcloud__mail_smtpmode }}',
+  'mail_sendmailmode' => '{{ install_nextcloud__mail_sendmailmode }}',
+  'mail_domain' => '{{ install_nextcloud__mail_domain }}',
+  'mail_smtphost' => '{{ install_nextcloud__mail_smtphost }}',
+  'mail_smtpport' => '{{ install_nextcloud__mail_smtpport }}',
 {% endif %}
 ];
