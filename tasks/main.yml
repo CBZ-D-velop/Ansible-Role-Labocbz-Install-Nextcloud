@@ -12,40 +12,40 @@
     - name: "Check if data dir exist"
       register: file_check
       ansible.builtin.stat:
-        path: "{{ install_nextcloud_install_data_path }}"
+        path: "{{ install_nextcloud__install_data_path }}"
 
     - name: "Create data dir"
       when: not file_check.stat.exists
       ansible.builtin.file:
-        path: "{{ install_nextcloud_install_data_path }}"
+        path: "{{ install_nextcloud__install_data_path }}"
         state: directory
         recurse: yes
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
+        owner: "{{ install_nextcloud__apache_system_user }}"
+        group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
 
     - name: "Check if install dir exist"
       register: file_check
       ansible.builtin.stat:
-        path: "{{ install_nextcloud_install_path }}/nextcloud"
+        path: "{{ install_nextcloud__install_path }}/nextcloud"
 
     - name: "Create install dir"
       when: not file_check.stat.exists
       ansible.builtin.file:
-        path: "{{ install_nextcloud_install_path }}/nextcloud"
+        path: "{{ install_nextcloud__install_path }}/nextcloud"
         state: directory
         recurse: yes
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
+        owner: "{{ install_nextcloud__apache_system_user }}"
+        group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
 
     - name: "Deploy Nextcloud from sources"
       when: not file_check.stat.exists
       ansible.builtin.unarchive:
-        dest: "{{ install_nextcloud_install_path }}"
-        src: "https://download.nextcloud.com/server/releases/nextcloud-{{ install_nextcloud_version }}.zip"
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
+        dest: "{{ install_nextcloud__install_path }}"
+        src: "https://download.nextcloud.com/server/releases/nextcloud-{{ install_nextcloud__version }}.zip"
+        owner: "{{ install_nextcloud__apache_system_user }}"
+        group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
         remote_src: yes
         exclude:
@@ -54,24 +54,24 @@
     - name: "Check if tmp dir exist"
       register: file_check
       ansible.builtin.stat:
-        path: "{{ install_nextcloud_install_path }}/tmp"
+        path: "{{ install_nextcloud__install_path }}/tmp"
 
     - name: "Create custim_apps dir"
       when: not file_check.stat.exists
       ansible.builtin.file:
-        path: "{{ install_nextcloud_install_path }}/tmp"
+        path: "{{ install_nextcloud__install_path }}/tmp"
         state: directory
         recurse: yes
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
+        owner: "{{ install_nextcloud__apache_system_user }}"
+        group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
 
     - name: "Import config.php"
       ansible.builtin.template:
         src: "templates/config.php.j2"
-        dest: "{{ install_nextcloud_install_path }}/nextcloud/config/config.php"
-        owner: "{{ install_nextcloud_apache_system_user }}"
-        group: "{{ install_nextcloud_apache_system_group }}"
+        dest: "{{ install_nextcloud__install_path }}/nextcloud/config/config.php"
+        owner: "{{ install_nextcloud__apache_system_user }}"
+        group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
 
 - name: "Install Nextcloud with CLI"
@@ -86,24 +86,24 @@
       changed_when: output.rc < 0
       failed_when: output.rc < 0
       ansible.builtin.shell: |
-        cd {{ install_nextcloud_install_path }}/nextcloud
+        cd {{ install_nextcloud__install_path }}/nextcloud
         php occ  maintenance:install \
         --database='mysql' \
-        --database-host='{{ install_nextcloud_mysql_host }}' \
-        --database-port='{{ install_nextcloud_mysql_port }}' \
-        --database-name='{{ install_nextcloud_mysql_database }}' \
-        --database-user='{{ install_nextcloud_mysql_user }}' \
-        --database-pass='{{ install_nextcloud_mysql_password }}' \
-        --admin-user='{{ install_nextcloud_admin_user }}' \
-        --admin-pass='{{ install_nextcloud_admin_password }}'
+        --database-host='{{ install_nextcloud__mysql_host }}' \
+        --database-port='{{ install_nextcloud__mysql_port }}' \
+        --database-name='{{ install_nextcloud__mysql_database }}' \
+        --database-user='{{ install_nextcloud__mysql_user }}' \
+        --database-pass='{{ install_nextcloud__mysql_password }}' \
+        --admin-user='{{ install_nextcloud__admin_user }}' \
+        --admin-pass='{{ install_nextcloud__admin_password }}'
 
     - name: "Create cron task for cron.php"
       ansible.builtin.cron:
-        cron_file: "{{ install_nextcloud_clean_cron_file }}"
+        cron_file: "{{ install_nextcloud__clean_cron_file }}"
         name: "Nextcloud PHP cron.php"
         weekday: "*"
         minute: "*/5"
         hour: "*"
         user: "www-data"
-        job: "/usr/bin/php -f {{ install_nextcloud_install_path }}/nextcloud/cron.php > /dev/null 2>&1"
+        job: "/usr/bin/php -f {{ install_nextcloud__install_path }}/nextcloud/cron.php > /dev/null 2>&1"
         state: present

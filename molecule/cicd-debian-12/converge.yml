@@ -1,7 +1,8 @@
 ---
 - name: "Converge"
-  hosts: "local"
+  hosts: "cicd-debian-12"
   tasks:
+
 
     - name: "Include labocbz.install_nextcloud"
       tags:

@@ -2,22 +2,22 @@
 # Don't forget to keep this file updated
 # molecule/<scenario>/verify.yml
 - name: "Verify"
-  hosts: "all"
+  hosts: "local"
   gather_facts: false
   tasks:
 
     - name: "Get Apache2 service current state"
-      register: install_apache_service_status
-      failed_when: not install_apache_service_status.status.ActiveState == 'active'
+      register: install_apache__service_status
+      failed_when: not install_apache__service_status.status.ActiveState == 'active'
       ansible.builtin.systemd:
         name: "apache2"
 
     - name: "Check Nextcloud folders and conf"
       loop:
-        - "{{ inv_install_nextcloud_install_path }}"
-        - "{{ inv_install_nextcloud_install_data_path }}"
-        - "{{ inv_install_nextcloud_install_path }}/nextcloud"
-        - "{{ inv_install_nextcloud_install_path }}/nextcloud/config"
+        - "{{ inv_install_nextcloud__install_path }}"
+        - "{{ inv_install_nextcloud__install_data_path }}"
+        - "{{ inv_install_nextcloud__install_path }}/nextcloud"
+        - "{{ inv_install_nextcloud__install_path }}/nextcloud/config"
       loop_control:
         loop_var: folder_path
       register: folder_check
