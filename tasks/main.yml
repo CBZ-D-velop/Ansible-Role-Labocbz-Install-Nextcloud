@@ -75,7 +75,7 @@
       ansible.builtin.stat:
         path: "{{ install_nextcloud__install_path }}/nextcloud/config/config.php"
 
-    - name: "configure Nextlcoud"
+    - name: "Configure Nextlcoud"
       when: not file_check.stat.exists
       ansible.builtin.template:
         src: "templates/config.php.j2"
