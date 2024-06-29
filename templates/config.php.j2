@@ -135,11 +135,11 @@ $CONFIG = [
     ],
 {% endif %}
 {% if install_nextcloud__redis_host | default(false) %}
-  'mail_from_address' => '{{ install_nextcloud__mail_from_address }}',
-  'mail_smtpmode' => '{{ install_nextcloud__mail_smtpmode }}',
-  'mail_sendmailmode' => '{{ install_nextcloud__mail_sendmailmode }}',
-  'mail_domain' => '{{ install_nextcloud__mail_domain }}',
-  'mail_smtphost' => '{{ install_nextcloud__mail_smtphost }}',
-  'mail_smtpport' => '{{ install_nextcloud__mail_smtpport }}',
+    'mail_from_address' => '{{ install_nextcloud__mail_from_address }}',
+    'mail_smtpmode' => '{{ install_nextcloud__mail_smtpmode }}',
+    'mail_sendmailmode' => '{{ install_nextcloud__mail_sendmailmode }}',
+    'mail_domain' => '{{ install_nextcloud__mail_domain }}',
+    'mail_smtphost' => '{{ install_nextcloud__mail_smtphost }}',
+    'mail_smtpport' => '{{ install_nextcloud__mail_smtpport }}',
 {% endif %}
 ];

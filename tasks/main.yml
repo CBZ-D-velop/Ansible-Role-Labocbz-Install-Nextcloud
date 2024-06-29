@@ -4,6 +4,10 @@
     - "Reload Apache2"
   block:
     - name: "Install LibMagic"
+      retries: 3
+      delay: 10
+      until: output is success
+      register: output
       ansible.builtin.package:
         update_cache: true
         name:
@@ -56,17 +60,23 @@
       ansible.builtin.stat:
         path: "{{ install_nextcloud__install_path }}/tmp"
 
-    - name: "Create custim_apps dir"
+    - name: "Create custom_apps dir"
       when: not file_check.stat.exists
       ansible.builtin.file:
-        path: "{{ install_nextcloud__install_path }}/tmp"
+        path: "{{ install_nextcloud__install_path }}/custom_apps"
         state: directory
         recurse: yes
         owner: "{{ install_nextcloud__apache_system_user }}"
         group: "{{ install_nextcloud__apache_system_group }}"
         mode: "0755"
 
-    - name: "Import config.php"
+    - name: "Check if config file exist"
+      register: file_check
+      ansible.builtin.stat:
+        path: "{{ install_nextcloud__install_path }}/nextcloud/config/config.php"
+
+    - name: "Configure Nextlcoud"
+      when: not file_check.stat.exists
       ansible.builtin.template:
         src: "templates/config.php.j2"
         dest: "{{ install_nextcloud__install_path }}/nextcloud/config/config.php"
@@ -80,7 +90,7 @@
       ansible.builtin.meta: flush_handlers
 
     - name: "Install with CLI"
-      become: yes
+      become: true
       become_user: "www-data"
       register: output
       changed_when: output.rc < 0
